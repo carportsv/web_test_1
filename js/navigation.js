@@ -1,27 +1,4 @@
-// Page navigation functions
-
-function showPage(pageId) {
-    // Hide all pages
-    const pages = document.querySelectorAll('.page');
-    pages.forEach(page => {
-        page.classList.remove('active');
-    });
-    
-    // Show selected page
-    const targetPage = document.getElementById(pageId);
-    if (targetPage) {
-        targetPage.classList.add('active');
-        currentPage = pageId;
-        
-        // Update active navigation
-        updateActiveNavigation(pageId);
-        
-        // Close mobile menu if open
-        const navCenter = document.getElementById('nav-center');
-        navCenter.classList.remove('active');
-    }
-}
-
+// Navigation functions
 function updateActiveNavigation(pageId) {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
@@ -41,28 +18,18 @@ function updateActiveNavigation(pageId) {
     });
 }
 
-// Smooth page transitions (alternative function)
-function smoothShowPage(pageId) {
-    const currentPageElement = document.querySelector('.page.active');
-    const targetPageElement = document.getElementById(pageId);
-    
-    if (currentPageElement && targetPageElement && currentPageElement !== targetPageElement) {
-        // Fade out current page
-        currentPageElement.style.opacity = '0';
-        currentPageElement.style.transform = 'translateX(-50px)';
-        
-        setTimeout(() => {
-            currentPageElement.classList.remove('active');
-            targetPageElement.classList.add('active');
-            
-            // Fade in new page
-            setTimeout(() => {
-                targetPageElement.style.opacity = '1';
-                targetPageElement.style.transform = 'translateX(0)';
-            }, 50);
-        }, 300);
-        
-        currentPage = pageId;
-        updateActiveNavigation(pageId);
-    }
+// Mobile menu functions
+function toggleMobileMenu() {
+    const navCenter = document.getElementById('nav-center');
+    navCenter.classList.toggle('active');
 }
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    // Close mobile menu when clicking outside
+    const navCenter = document.getElementById('nav-center');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    if (!navCenter.contains(event.target) && !mobileToggle.contains(event.target)) {
+        navCenter.classList.remove('active');
+    }
+});
