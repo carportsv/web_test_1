@@ -19,14 +19,16 @@
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             color: white;
             padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         nav {
@@ -39,24 +41,130 @@
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             font-weight: bold;
+            background: linear-gradient(45deg, #00d4ff, #9d4edd, #ff006e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+        }
+
+        .nav-center {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 0.5rem;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 0.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-links li {
+            position: relative;
         }
 
         .nav-links a {
-            color: white;
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
-            transition: opacity 0.3s;
+            padding: 12px 24px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            display: block;
         }
 
-        .nav-links a:hover {
-            opacity: 0.8;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: white;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 25px;
+            background: linear-gradient(45deg, #00d4ff, #9d4edd);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-links a:hover::before {
+            opacity: 0.2;
+        }
+
+        .language-selector {
+            position: relative;
+        }
+
+        .language-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .language-btn:hover {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
+        }
+
+        .language-dropdown {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 0.5rem 0;
+            min-width: 120px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        .language-dropdown.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .language-dropdown button {
+            width: 100%;
+            background: none;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-align: left;
+        }
+
+        .language-dropdown button:hover {
+            background: rgba(255,255,255,0.1);
         }
 
         /* Main Content */
@@ -303,13 +411,24 @@
     <header>
         <nav>
             <div class="logo">Tu Nombre</div>
-            <ul class="nav-links">
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-mi">Sobre Mí</a></li>
-                <li><a href="#servicios">Servicios</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#contacto">Contacto</a></li>
-            </ul>
+            <div class="nav-center">
+                <ul class="nav-links">
+                    <li><a href="#inicio" class="nav-link active" data-es="Inicio" data-en="Home">Inicio</a></li>
+                    <li><a href="#sobre-mi" class="nav-link" data-es="Sobre Mí" data-en="About">Sobre Mí</a></li>
+                    <li><a href="#servicios" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a></li>
+                    <li><a href="#portfolio" class="nav-link" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
+                    <li><a href="#contacto" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                </ul>
+            </div>
+            <div class="language-selector">
+                <button class="language-btn" onclick="toggleLanguageDropdown()">
+                    🌐 <span id="current-lang">ES</span>
+                </button>
+                <div class="language-dropdown" id="language-dropdown">
+                    <button onclick="changeLanguage('es')">🇪🇸 Español</button>
+                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                </div>
+            </div>
         </nav>
     </header>
 
@@ -317,34 +436,34 @@
     <main>
         <!-- Hero Section -->
         <section id="inicio" class="hero">
-            <h1>Ingeniero en Sistemas</h1>
-            <p class="subtitle">Especializado en Desarrollo de Software y Análisis de Datos</p>
-            <a href="#contacto" class="cta-button">Trabajemos Juntos</a>
+            <h1 data-es="Ingeniero en Sistemas" data-en="Systems Engineer">Ingeniero en Sistemas</h1>
+            <p class="subtitle" data-es="Especializado en Desarrollo de Software y Análisis de Datos" data-en="Specialized in Software Development and Data Analysis">Especializado en Desarrollo de Software y Análisis de Datos</p>
+            <a href="#contacto" class="cta-button" data-es="Trabajemos Juntos" data-en="Let's Work Together">Trabajemos Juntos</a>
         </section>
 
         <!-- About Section -->
         <section id="sobre-mi" class="about">
-            <h2>Sobre Mí</h2>
+            <h2 data-es="Sobre Mí" data-en="About Me">Sobre Mí</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos.</p>
+                    <p data-es="Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos." data-en="I am a Systems Engineer passionate about technology and innovation. I specialize in software development and data analysis, with experience in multiple modern technologies and frameworks.">Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos.</p>
                     
-                    <p>Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones.</p>
+                    <p data-es="Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones." data-en="My goal is to create efficient technological solutions that solve real problems and add value to organizations.">Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones.</p>
                     
-                    <p>Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo.</p>
+                    <p data-es="Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo." data-en="I am always learning new technologies and staying updated with the latest trends in the development world.">Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo.</p>
                 </div>
                 
                 <div class="skills">
                     <div class="skill-item">
-                        <h3>Desarrollo Web</h3>
+                        <h3 data-es="Desarrollo Web" data-en="Web Development">Desarrollo Web</h3>
                         <p>HTML, CSS, JavaScript, React, Node.js</p>
                     </div>
                     <div class="skill-item">
-                        <h3>Análisis de Datos</h3>
+                        <h3 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h3>
                         <p>Python, SQL, Power BI, Excel</p>
                     </div>
                     <div class="skill-item">
-                        <h3>Bases de Datos</h3>
+                        <h3 data-es="Bases de Datos" data-en="Databases">Bases de Datos</h3>
                         <p>MySQL, PostgreSQL, MongoDB</p>
                     </div>
                     <div class="skill-item">
@@ -357,26 +476,26 @@
 
         <!-- Services Section -->
         <section id="servicios" class="services">
-            <h2>Mis Servicios</h2>
+            <h2 data-es="Mis Servicios" data-en="My Services">Mis Servicios</h2>
             <div class="services-grid">
                 <div class="service-card">
-                    <h3>Desarrollo de Software</h3>
-                    <p>Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos.</p>
+                    <h3 data-es="Desarrollo de Software" data-en="Software Development">Desarrollo de Software</h3>
+                    <p data-es="Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos." data-en="Creation of web and mobile applications using the latest technologies. From landing pages to complex systems.">Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Análisis de Datos</h3>
-                    <p>Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados.</p>
+                    <h3 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h3>
+                    <p data-es="Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados." data-en="I transform data into valuable insights through statistical analysis, visualizations and automated reports.">Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Automatización de Procesos</h3>
-                    <p>Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia.</p>
+                    <h3 data-es="Automatización de Procesos" data-en="Process Automation">Automatización de Procesos</h3>
+                    <p data-es="Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia." data-en="I optimize business workflows through automation, reducing times and improving efficiency.">Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia.</p>
                 </div>
                 
                 <div class="service-card">
-                    <h3>Consultoría Tecnológica</h3>
-                    <p>Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo.</p>
+                    <h3 data-es="Consultoría Tecnológica" data-en="Tech Consulting">Consultoría Tecnológica</h3>
+                    <p data-es="Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo." data-en="Consulting on systems architecture, technology selection and development best practices.">Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo.</p>
                 </div>
             </div>
         </section>
@@ -387,25 +506,25 @@
             <div class="portfolio-grid">
                 <div class="portfolio-item">
                     <div class="portfolio-item-content">
-                        <h3>Sistema de Gestión Empresarial</h3>
-                        <p>Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js.</p>
-                        <p><strong>Tecnologías:</strong> React, Node.js, MySQL, Bootstrap</p>
+                        <h3 data-es="Sistema de Gestión Empresarial" data-en="Business Management System">Sistema de Gestión Empresarial</h3>
+                        <p data-es="Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js." data-en="Complete web application for inventory and sales management. Developed with React and Node.js.">Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js.</p>
+                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> React, Node.js, MySQL, Bootstrap</p>
                     </div>
                 </div>
                 
                 <div class="portfolio-item">
                     <div class="portfolio-item-content">
-                        <h3>Dashboard de Análisis de Ventas</h3>
-                        <p>Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos.</p>
-                        <p><strong>Tecnologías:</strong> Python, Dash, Plotly, PostgreSQL</p>
+                        <h3 data-es="Dashboard de Análisis de Ventas" data-en="Sales Analysis Dashboard">Dashboard de Análisis de Ventas</h3>
+                        <p data-es="Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos." data-en="Interactive panel for real-time sales metrics visualization with dynamic charts.">Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos.</p>
+                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> Python, Dash, Plotly, PostgreSQL</p>
                     </div>
                 </div>
                 
                 <div class="portfolio-item">
                     <div class="portfolio-item-content">
-                        <h3>API de Gestión de Usuarios</h3>
-                        <p>API RESTful robusta para autenticación y gestión de usuarios con documentación completa.</p>
-                        <p><strong>Tecnologías:</strong> Node.js, Express, JWT, MongoDB</p>
+                        <h3 data-es="API de Gestión de Usuarios" data-en="User Management API">API de Gestión de Usuarios</h3>
+                        <p data-es="API RESTful robusta para autenticación y gestión de usuarios con documentación completa." data-en="Robust RESTful API for authentication and user management with complete documentation.">API RESTful robusta para autenticación y gestión de usuarios con documentación completa.</p>
+                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> Node.js, Express, JWT, MongoDB</p>
                     </div>
                 </div>
             </div>
@@ -413,8 +532,8 @@
 
         <!-- Contact Section -->
         <section id="contacto" class="contact">
-            <h2>¿Trabajamos Juntos?</h2>
-            <p>Estoy disponible para proyectos freelance y oportunidades de colaboración.</p>
+            <h2 data-es="¿Trabajamos Juntos?" data-en="Let's Work Together?">¿Trabajamos Juntos?</h2>
+            <p data-es="Estoy disponible para proyectos freelance y oportunidades de colaboración." data-en="I'm available for freelance projects and collaboration opportunities.">Estoy disponible para proyectos freelance y oportunidades de colaboración.</p>
             
             <div class="contact-info">
                 <div class="contact-item">
@@ -428,8 +547,8 @@
                 </div>
                 
                 <div class="contact-item">
-                    <h3>📍 Ubicación</h3>
-                    <p>Tu Ciudad, País</p>
+                    <h3 data-es="📍 Ubicación" data-en="📍 Location">📍 Ubicación</h3>
+                    <p data-es="Tu Ciudad, País" data-en="Your City, Country">Tu Ciudad, País</p>
                 </div>
                 
                 <div class="contact-item">
@@ -451,21 +570,84 @@
     </footer>
 
     <script>
-        // Smooth scrolling para enlaces de navegación
+        let currentLanguage = 'es';
+        
+        // Language functions
+        function toggleLanguageDropdown() {
+            const dropdown = document.getElementById('language-dropdown');
+            dropdown.classList.toggle('show');
+        }
+        
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.getElementById('current-lang').textContent = lang.toUpperCase();
+            
+            // Update all elements with data attributes
+            const elements = document.querySelectorAll('[data-es], [data-en]');
+            elements.forEach(element => {
+                if (element.hasAttribute(`data-${lang}`)) {
+                    element.textContent = element.getAttribute(`data-${lang}`);
+                }
+            });
+            
+            // Close dropdown
+            document.getElementById('language-dropdown').classList.remove('show');
+        }
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(event) {
+            const selector = document.querySelector('.language-selector');
+            if (!selector.contains(event.target)) {
+                document.getElementById('language-dropdown').classList.remove('show');
+            }
+        });
+
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active navigation
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
             });
         });
 
-        // Efecto de paralaje simple en hero
+        // Parallax effect for hero section
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const hero = document.querySelector('.hero');
-            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            if (hero) {
+                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+            
+            // Update active navigation based on scroll position
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrolled >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
         });
     </script>
 </body>
