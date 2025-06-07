@@ -7,17 +7,16 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="showPage('inicio')">Tu Nombre</div>
+            <div class="logo" onclick="loadPage('home')">Tu Nombre</div>
             <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="showPage('inicio')" data-es="Inicio" data-en="Home">Inicio</button></li>
-                    <li><button class="nav-link" onclick="showPage('sobre-mi')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="showPage('servicios')" data-es="Servicios" data-en="Services">Servicios</button></li>
-                    <li><button class="nav-link" onclick="showPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="showPage('contacto')" data-es="Contacto" data-en="Contact">Contacto</button></li>
+                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('aboutme')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
                 </ul>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">
@@ -35,12 +34,10 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main id="main-content">
-        <!-- Content will be loaded dynamically from pages/ folder -->
+        <!-- Contenido se cargará dinámicamente aquí -->
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Tu Nombre. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
         <div class="social-links">
