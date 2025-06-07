@@ -15,6 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -48,6 +49,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+            cursor: pointer;
         }
 
         .nav-center {
@@ -71,26 +73,28 @@
             position: relative;
         }
 
-        .nav-links a {
+        .nav-links button {
             color: rgba(255,255,255,0.8);
-            text-decoration: none;
+            background: none;
+            border: none;
             padding: 12px 24px;
             border-radius: 25px;
             transition: all 0.3s ease;
             position: relative;
             font-weight: 500;
-            display: block;
+            cursor: pointer;
+            font-size: 1rem;
         }
 
-        .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links button:hover,
+        .nav-links button.active {
             color: white;
             background: linear-gradient(45deg, #667eea, #764ba2);
             box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
             transform: translateY(-2px);
         }
 
-        .nav-links a::before {
+        .nav-links button::before {
             content: '';
             position: absolute;
             top: 0;
@@ -104,7 +108,7 @@
             z-index: -1;
         }
 
-        .nav-links a:hover::before {
+        .nav-links button:hover::before {
             opacity: 0.2;
         }
 
@@ -170,9 +174,25 @@
         /* Main Content */
         main {
             margin-top: 80px;
+            min-height: calc(100vh - 80px);
         }
 
-        section {
+        /* Page System */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.5s ease;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .page-content {
             padding: 4rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
@@ -183,43 +203,76 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             text-align: center;
             padding: 6rem 2rem;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1rem;
             color: #2c3e50;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeInUp 1s ease;
         }
 
         .hero .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #7f8c8d;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s both;
         }
 
         .cta-button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 12px 30px;
+            padding: 15px 35px;
             border: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 1rem;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            font-weight: 600;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
         }
 
         .cta-button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid #667eea;
+            color: #667eea;
+        }
+
+        .cta-button.secondary:hover {
+            background: #667eea;
+            color: white;
         }
 
         /* About Section */
-        .about {
+        .about-page {
             background: white;
         }
 
-        .about h2 {
+        .about-page h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
             text-align: center;
@@ -229,40 +282,77 @@
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             align-items: center;
+            margin-bottom: 4rem;
         }
 
-        .about-text p {
-            margin-bottom: 1rem;
+        .about-text {
             font-size: 1.1rem;
             line-height: 1.8;
         }
 
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-image {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 6rem;
+        }
+
+        .skills-section {
+            margin-top: 4rem;
+        }
+
+        .skills-section h3 {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
         .skills {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
         }
 
         .skill-item {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            padding: 2rem;
+            border-radius: 15px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .skill-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-item h4 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
         }
 
         /* Services Section */
-        .services {
-            background: #f8f9fa;
+        .services-page {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
-        .services h2 {
+        .services-page h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
             text-align: center;
@@ -271,33 +361,73 @@
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
         .service-card {
             background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
         }
 
         .service-card h3 {
             color: #667eea;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .service-card p {
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .service-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
         }
 
         /* Portfolio Section */
-        .portfolio {
+        .portfolio-page {
             background: white;
         }
 
-        .portfolio h2 {
+        .portfolio-page h2 {
             font-size: 2.5rem;
             margin-bottom: 3rem;
             text-align: center;
@@ -306,55 +436,132 @@
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
         }
 
         .portfolio-item {
-            background: #f8f9fa;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa, #ffffff);
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(102, 126, 234, 0.1);
         }
 
         .portfolio-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .portfolio-item-header {
+            height: 200px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-item-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .portfolio-item:hover .portfolio-item-header::before {
+            left: 100%;
         }
 
         .portfolio-item-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .portfolio-item h3 {
             color: #2c3e50;
             margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .portfolio-item p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tech-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
         }
 
         /* Contact Section */
-        .contact {
+        .contact-page {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             text-align: center;
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
-        .contact h2 {
+        .contact-page h2 {
             font-size: 2.5rem;
             margin-bottom: 2rem;
+        }
+
+        .contact-intro {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
         }
 
         .contact-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .contact-item {
-            padding: 1rem;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
         }
 
         .contact-item h3 {
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item p {
+            font-size: 1.1rem;
+            font-weight: 500;
         }
 
         /* Footer */
@@ -373,11 +580,37 @@
             color: white;
             text-decoration: none;
             margin: 0 1rem;
-            transition: opacity 0.3s;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 10px;
         }
 
         .social-links a:hover {
-            opacity: 0.8;
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         /* Responsive */
@@ -387,7 +620,7 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .about-content {
@@ -395,14 +628,79 @@
                 gap: 2rem;
             }
 
-            section {
+            .profile-image {
+                width: 200px;
+                height: 200px;
+                font-size: 4rem;
+            }
+
+            .page-content {
                 padding: 2rem 1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .skills {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Smooth scrolling */
-        html {
-            scroll-behavior: smooth;
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-center {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                right: 0;
+                background: rgba(26, 26, 46, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 2rem;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-center.active {
+                transform: translateY(0);
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                background: none;
+                padding: 0;
+                border: none;
+            }
+
+            .nav-links button {
+                width: 100%;
+                text-align: center;
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -410,23 +708,26 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">Tu Nombre</div>
-            <div class="nav-center">
+            <div class="logo" onclick="showPage('inicio')">Tu Nombre</div>
+            <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><a href="#inicio" class="nav-link active" data-es="Inicio" data-en="Home">Inicio</a></li>
-                    <li><a href="#sobre-mi" class="nav-link" data-es="Sobre Mí" data-en="About">Sobre Mí</a></li>
-                    <li><a href="#servicios" class="nav-link" data-es="Servicios" data-en="Services">Servicios</a></li>
-                    <li><a href="#portfolio" class="nav-link" data-es="Portfolio" data-en="Portfolio">Portfolio</a></li>
-                    <li><a href="#contacto" class="nav-link" data-es="Contacto" data-en="Contact">Contacto</a></li>
+                    <li><button class="nav-link active" onclick="showPage('inicio')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="showPage('sobre-mi')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="showPage('servicios')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="showPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="showPage('contacto')" data-es="Contacto" data-en="Contact">Contacto</button></li>
                 </ul>
             </div>
-            <div class="language-selector">
-                <button class="language-btn" onclick="toggleLanguageDropdown()">
-                    🌐 <span id="current-lang">ES</span>
-                </button>
-                <div class="language-dropdown" id="language-dropdown">
-                    <button onclick="changeLanguage('es')">🇪🇸 Español</button>
-                    <button onclick="changeLanguage('en')">🇺🇸 English</button>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+                <div class="language-selector">
+                    <button class="language-btn" onclick="toggleLanguageDropdown()">
+                        🌐 <span id="current-lang">ES</span>
+                    </button>
+                    <div class="language-dropdown" id="language-dropdown">
+                        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
+                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -434,221 +735,89 @@
 
     <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section id="inicio" class="hero">
-            <h1 data-es="Ingeniero en Sistemas" data-en="Systems Engineer">Ingeniero en Sistemas</h1>
-            <p class="subtitle" data-es="Especializado en Desarrollo de Software y Análisis de Datos" data-en="Specialized in Software Development and Data Analysis">Especializado en Desarrollo de Software y Análisis de Datos</p>
-            <a href="#contacto" class="cta-button" data-es="Trabajemos Juntos" data-en="Let's Work Together">Trabajemos Juntos</a>
-        </section>
-
-        <!-- About Section -->
-        <section id="sobre-mi" class="about">
-            <h2 data-es="Sobre Mí" data-en="About Me">Sobre Mí</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p data-es="Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos." data-en="I am a Systems Engineer passionate about technology and innovation. I specialize in software development and data analysis, with experience in multiple modern technologies and frameworks.">Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos.</p>
-                    
-                    <p data-es="Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones." data-en="My goal is to create efficient technological solutions that solve real problems and add value to organizations.">Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones.</p>
-                    
-                    <p data-es="Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo." data-en="I am always learning new technologies and staying updated with the latest trends in the development world.">Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo.</p>
+        <!-- Hero Page -->
+        <div id="inicio" class="page active">
+            <section class="hero">
+                <h1 data-es="Ingeniero en Sistemas" data-en="Systems Engineer">Ingeniero en Sistemas</h1>
+                <p class="subtitle" data-es="Especializado en Desarrollo de Software y Análisis de Datos" data-en="Specialized in Software Development and Data Analysis">Especializado en Desarrollo de Software y Análisis de Datos</p>
+                <div class="cta-buttons">
+                    <button class="cta-button" onclick="showPage('contacto')" data-es="Trabajemos Juntos" data-en="Let's Work Together">Trabajemos Juntos</button>
+                    <button class="cta-button secondary" onclick="showPage('portfolio')" data-es="Ver Mi Trabajo" data-en="View My Work">Ver Mi Trabajo</button>
                 </div>
-                
-                <div class="skills">
-                    <div class="skill-item">
-                        <h3 data-es="Desarrollo Web" data-en="Web Development">Desarrollo Web</h3>
-                        <p>HTML, CSS, JavaScript, React, Node.js</p>
-                    </div>
-                    <div class="skill-item">
-                        <h3 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h3>
-                        <p>Python, SQL, Power BI, Excel</p>
-                    </div>
-                    <div class="skill-item">
-                        <h3 data-es="Bases de Datos" data-en="Databases">Bases de Datos</h3>
-                        <p>MySQL, PostgreSQL, MongoDB</p>
-                    </div>
-                    <div class="skill-item">
-                        <h3>Cloud & DevOps</h3>
-                        <p>AWS, Git, Docker, CI/CD</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Services Section -->
-        <section id="servicios" class="services">
-            <h2 data-es="Mis Servicios" data-en="My Services">Mis Servicios</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <h3 data-es="Desarrollo de Software" data-en="Software Development">Desarrollo de Software</h3>
-                    <p data-es="Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos." data-en="Creation of web and mobile applications using the latest technologies. From landing pages to complex systems.">Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos.</p>
-                </div>
-                
-                <div class="service-card">
-                    <h3 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h3>
-                    <p data-es="Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados." data-en="I transform data into valuable insights through statistical analysis, visualizations and automated reports.">Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados.</p>
-                </div>
-                
-                <div class="service-card">
-                    <h3 data-es="Automatización de Procesos" data-en="Process Automation">Automatización de Procesos</h3>
-                    <p data-es="Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia." data-en="I optimize business workflows through automation, reducing times and improving efficiency.">Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia.</p>
-                </div>
-                
-                <div class="service-card">
-                    <h3 data-es="Consultoría Tecnológica" data-en="Tech Consulting">Consultoría Tecnológica</h3>
-                    <p data-es="Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo." data-en="Consulting on systems architecture, technology selection and development best practices.">Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section id="portfolio" class="portfolio">
-            <h2>Portfolio</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-item-content">
-                        <h3 data-es="Sistema de Gestión Empresarial" data-en="Business Management System">Sistema de Gestión Empresarial</h3>
-                        <p data-es="Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js." data-en="Complete web application for inventory and sales management. Developed with React and Node.js.">Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js.</p>
-                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> React, Node.js, MySQL, Bootstrap</p>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <div class="portfolio-item-content">
-                        <h3 data-es="Dashboard de Análisis de Ventas" data-en="Sales Analysis Dashboard">Dashboard de Análisis de Ventas</h3>
-                        <p data-es="Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos." data-en="Interactive panel for real-time sales metrics visualization with dynamic charts.">Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos.</p>
-                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> Python, Dash, Plotly, PostgreSQL</p>
-                    </div>
-                </div>
-                
-                <div class="portfolio-item">
-                    <div class="portfolio-item-content">
-                        <h3 data-es="API de Gestión de Usuarios" data-en="User Management API">API de Gestión de Usuarios</h3>
-                        <p data-es="API RESTful robusta para autenticación y gestión de usuarios con documentación completa." data-en="Robust RESTful API for authentication and user management with complete documentation.">API RESTful robusta para autenticación y gestión de usuarios con documentación completa.</p>
-                        <p><strong data-es="Tecnologías:" data-en="Technologies:">Tecnologías:</strong> Node.js, Express, JWT, MongoDB</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contacto" class="contact">
-            <h2 data-es="¿Trabajamos Juntos?" data-en="Let's Work Together?">¿Trabajamos Juntos?</h2>
-            <p data-es="Estoy disponible para proyectos freelance y oportunidades de colaboración." data-en="I'm available for freelance projects and collaboration opportunities.">Estoy disponible para proyectos freelance y oportunidades de colaboración.</p>
-            
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h3>📧 Email</h3>
-                    <p>tu.email@gmail.com</p>
-                </div>
-                
-                <div class="contact-item">
-                    <h3>📱 WhatsApp</h3>
-                    <p>+1 (555) 123-4567</p>
-                </div>
-                
-                <div class="contact-item">
-                    <h3 data-es="📍 Ubicación" data-en="📍 Location">📍 Ubicación</h3>
-                    <p data-es="Tu Ciudad, País" data-en="Your City, Country">Tu Ciudad, País</p>
-                </div>
-                
-                <div class="contact-item">
-                    <h3>💼 LinkedIn</h3>
-                    <p>linkedin.com/in/tu-perfil</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Tu Nombre. Todos los derechos reservados.</p>
-        <div class="social-links">
-            <a href="https://github.com/tu-usuario">GitHub</a>
-            <a href="https://linkedin.com/in/tu-perfil">LinkedIn</a>
-            <a href="mailto:tu.email@gmail.com">Email</a>
+            </section>
         </div>
-    </footer>
 
-    <script>
-        let currentLanguage = 'es';
-        
-        // Language functions
-        function toggleLanguageDropdown() {
-            const dropdown = document.getElementById('language-dropdown');
-            dropdown.classList.toggle('show');
-        }
-        
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            document.getElementById('current-lang').textContent = lang.toUpperCase();
-            
-            // Update all elements with data attributes
-            const elements = document.querySelectorAll('[data-es], [data-en]');
-            elements.forEach(element => {
-                if (element.hasAttribute(`data-${lang}`)) {
-                    element.textContent = element.getAttribute(`data-${lang}`);
-                }
-            });
-            
-            // Close dropdown
-            document.getElementById('language-dropdown').classList.remove('show');
-        }
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const selector = document.querySelector('.language-selector');
-            if (!selector.contains(event.target)) {
-                document.getElementById('language-dropdown').classList.remove('show');
-            }
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        <!-- About Page -->
+        <div id="sobre-mi" class="page about-page">
+            <div class="page-content">
+                <h2 data-es="Sobre Mí" data-en="About Me">Sobre Mí</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p data-es="Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos." data-en="I am a Systems Engineer passionate about technology and innovation. I specialize in software development and data analysis, with experience in multiple modern technologies and frameworks.">Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos.</p>
+                        
+                        <p data-es="Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones. Me encanta enfrentar nuevos desafíos y encontrar formas creativas de implementar soluciones robustas." data-en="My goal is to create efficient technological solutions that solve real problems and add value to organizations. I love facing new challenges and finding creative ways to implement robust solutions.">Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones. Me encanta enfrentar nuevos desafíos y encontrar formas creativas de implementar soluciones robustas.</p>
+                        
+                        <p data-es="Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo. La educación continua es fundamental en mi carrera profesional." data-en="I am always learning new technologies and staying updated with the latest trends in the development world. Continuous education is fundamental in my professional career.">Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo. La educación continua es fundamental en mi carrera profesional.</p>
+                    </div>
                     
-                    // Update active navigation
-                    document.querySelectorAll('.nav-link').forEach(link => {
-                        link.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                }
-            });
-        });
+                    <div class="profile-image">
+                        👨‍💻
+                    </div>
+                </div>
 
-        // Parallax effect for hero section
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const hero = document.querySelector('.hero');
-            if (hero) {
-                hero.style.transform = `translateY(${scrolled * 0.5}px)`;
-            }
-            
-            // Update active navigation based on scroll position
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-link');
-            
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (scrolled >= (sectionTop - 200)) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${current}`) {
-                    link.classList.add('active');
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                <div class="skills-section">
+                    <h3 data-es="Mis Habilidades" data-en="My Skills">Mis Habilidades</h3>
+                    <div class="skills">
+                        <div class="skill-item">
+                            <h4 data-es="Desarrollo Web" data-en="Web Development">Desarrollo Web</h4>
+                            <p>HTML5, CSS3, JavaScript ES6+, React, Vue.js, Node.js, Express</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h4>
+                            <p>Python, Pandas, NumPy, SQL, Power BI, Tableau, Excel Avanzado</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4 data-es="Bases de Datos" data-en="Databases">Bases de Datos</h4>
+                            <p>MySQL, PostgreSQL, MongoDB, Redis, Firebase</p>
+                        </div>
+                        <div class="skill-item">
+                            <h4>Cloud & DevOps</h4>
+                            <p>AWS, Azure, Docker, Kubernetes, Git, CI/CD, Jenkins</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Page -->
+        <div id="servicios" class="page services-page">
+            <div class="page-content">
+                <h2 data-es="Mis Servicios" data-en="My Services">Mis Servicios</h2>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <h3 data-es="Desarrollo de Software" data-en="Software Development">Desarrollo de Software</h3>
+                        <p data-es="Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos empresariales." data-en="Creation of web and mobile applications using the latest technologies. From landing pages to complex enterprise systems.">Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos empresariales.</p>
+                        <ul class="service-features">
+                            <li data-es="Aplicaciones web responsivas" data-en="Responsive web applications">Aplicaciones web responsivas</li>
+                            <li data-es="APIs RESTful y GraphQL" data-en="RESTful and GraphQL APIs">APIs RESTful y GraphQL</li>
+                            <li data-es="Aplicaciones móviles híbridas" data-en="Hybrid mobile applications">Aplicaciones móviles híbridas</li>
+                            <li data-es="Sistemas de gestión empresarial" data-en="Business management systems">Sistemas de gestión empresarial</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3 data-es="Análisis de Datos" data-en="Data Analysis">Análisis de Datos</h3>
+                        <p data-es="Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones interactivas y reportes automatizados que impulsan la toma de decisiones." data-en="I transform data into valuable insights through statistical analysis, interactive visualizations and automated reports that drive decision making.">Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones interactivas y reportes automatizados que impulsan la toma de decisiones.</p>
+                        <ul class="service-features">
+                            <li data-es="Dashboards interactivos" data-en="Interactive dashboards">Dashboards interactivos</li>
+                            <li data-es="Análisis predictivo" data-en="Predictive analysis">Análisis predictivo</li>
+                            <li data-es="Reportería automatizada" data-en="Automated reporting">Reportería automatizada</li>
+                            <li data-es="Migración y ETL de datos" data-en="Data migration and ETL">Migración y ETL de datos</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-card">
+                        <h3 data-es="Automatización de Procesos" data-en="Process Automation">Automatización de Procesos</h3>
+                        <p data-es="Optimizo workflows empresariales mediante automatización inteligente, reduciendo tiempos de ejecución y mejorando la eficiencia operativa." data-en="I optimize business workflows through intelligent automation, reducing execution times and improving operational efficiency.">Optimizo workflows empresariales mediante automatización inteligente, reduciendo tiempos de ejecución y mejorando la eficiencia operativa.</p>
+                        <ul class="service-features">
+                            <li data-es="Bots de automatización" data-en="Automation bots">Bots de automatización</li>
