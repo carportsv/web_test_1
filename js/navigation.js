@@ -2,11 +2,11 @@
  * Page navigation system
  */
 const pageMap = {
-    'inicio': 'pages/home.html',
-    'sobre-mi': 'pages/aboutme.html',
-    'servicios': 'pages/services.html',
+    'home': 'pages/home.html',
+    'aboutme': 'pages/aboutme.html',
+    'services': 'pages/services.html',
     'portfolio': 'pages/portfolio.html',
-    'contacto': 'pages/contact.html'
+    'contact': 'pages/contact.html'
 };
 
 // Load page content dynamically
