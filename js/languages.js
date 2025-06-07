@@ -1,4 +1,5 @@
-// Language management functions
+// Language functions
+let currentLanguage = 'es';
 
 function toggleLanguageDropdown() {
     const dropdown = document.getElementById('language-dropdown');
@@ -20,3 +21,11 @@ function changeLanguage(lang) {
     // Close dropdown
     document.getElementById('language-dropdown').classList.remove('show');
 }
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const selector = document.querySelector('.language-selector');
+    if (!selector.contains(event.target)) {
+        document.getElementById('language-dropdown').classList.remove('show');
+    }
+});
