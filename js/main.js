@@ -1,54 +1,32 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tu Nombre - Ingeniero en Sistemas</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="logo" onclick="loadPage('home')">Tu Nombre</div>
-            <div class="nav-center" id="nav-center">
-                <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('aboutme')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
-                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
-                </ul>
-            </div>
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
-                <div class="language-selector">
-                    <button class="language-btn" onclick="toggleLanguageDropdown()">
-                        🌐 <span id="current-lang">ES</span>
-                    </button>
-                    <div class="language-dropdown" id="language-dropdown">
-                        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
-                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+let currentPage = 'home';
+let currentLanguage = 'es';
 
-    <main id="main-content">
-        <!-- Contenido se cargará dinámicamente aquí -->
-    </main>
+function loadPage(pageId) {
+    fetch(`pages/${pageId}.html`)
+        .then(response => {
+            if (!response.ok) throw new Error('Página no encontrada');
+            return response.text();
+        })
+        .then(html => {
+            document.getElementById('main-content').innerHTML = html;
+            currentPage = pageId;
+            updateActiveNavigation(pageId);
+            document.getElementById('nav-center').classList.remove('active');
+            changeLanguage(currentLanguage); // Actualizar idioma
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            if (pageId !== 'home') loadPage('home');
+        });
+}
 
-    <footer>
-        <p>&copy; 2025 Tu Nombre. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
-        <div class="social-links">
-            <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
-            <a href="https://linkedin.com/in/tu-perfil" target="_blank">LinkedIn</a>
-            <a href="mailto:tu.email@gmail.com">Email</a>
-        </div>
-    </footer>
-
-    <script src="js/main.js"></script>
-    <script src="js/navigation.js"></script>
-    <script src="js/languages.js"></script>
-</body>
-</html>
+document.addEventListener('DOMContentLoaded', () => {
+    loadPage('home');
+    
+    document.querySelectorAll('.nav-link').forEach(button => {
+        button.addEventListener('click', function() {
+            const pageId = this.getAttribute('onclick').replace("loadPage('", "").replace("')", "");
+            loadPage(pageId);
+        });
+    });
+});
