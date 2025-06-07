@@ -1,10 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Mi Portfolio</title>
-</head>
-<body>
-    <h1>¡Hola! Soy [Tu Nombre]</h1>
-    <p>Ingeniero en Sistemas</p>
-</body>
-</html>
+# Mi Portfolio
+
+Sitio web personal de Ingeniero en Sistemas.
+
+## Sitio web
+https://web-test-1-bg3.pages.dev
+
+## Tecnologías
+- HTML
+- CSS  
+- JavaScript
+- Cloudflare Pages
+
+## Estado
+En desarrollo
