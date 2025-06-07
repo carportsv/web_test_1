@@ -1,32 +1,8 @@
-let currentPage = 'home';
-let currentLanguage = 'es';
-
-function loadPage(pageId) {
-    fetch(`pages/${pageId}.html`)
-        .then(response => {
-            if (!response.ok) throw new Error('Página no encontrada');
-            return response.text();
-        })
-        .then(html => {
-            document.getElementById('main-content').innerHTML = html;
-            currentPage = pageId;
-            updateActiveNavigation(pageId);
-            document.getElementById('nav-center').classList.remove('active');
-            changeLanguage(currentLanguage); // Actualizar idioma
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            if (pageId !== 'home') loadPage('home');
-        });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    loadPage('home');
-    
-    document.querySelectorAll('.nav-link').forEach(button => {
-        button.addEventListener('click', function() {
-            const pageId = this.getAttribute('onclick').replace("loadPage('", "").replace("')", "");
-            loadPage(pageId);
-        });
-    });
-});
+<section class="hero">
+    <h1 data-es="Ingeniero en Sistemas" data-en="Systems Engineer">Ingeniero en Sistemas</h1>
+    <p class="subtitle" data-es="Especializado en Desarrollo de Software y Análisis de Datos" data-en="Specialized in Software Development and Data Analysis">Especializado en Desarrollo de Software y Análisis de Datos</p>
+    <div class="cta-buttons">
+        <button class="cta-button" onclick="loadPage('contact')" data-es="Trabajemos Juntos" data-en="Let's Work Together">Trabajemos Juntos</button>
+        <button class="cta-button secondary" onclick="loadPage('portfolio')" data-es="Ver Mi Trabajo" data-en="View My Work">Ver Mi Trabajo</button>
+    </div>
+</section>
