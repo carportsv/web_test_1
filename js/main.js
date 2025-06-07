@@ -1,77 +1,83 @@
-// Main application initialization and utilities
+/**
+ * Main application initialization and utilities
+ */
 let currentLanguage = 'es';
 let currentPage = 'inicio';
 
-// Mobile menu functions
-function toggleMobileMenu() {
-    const navCenter = document.getElementById('nav-center');
-    navCenter.classList.toggle('active');
-}
+// Initialize the application
+document.addEventListener('DOMContentLoaded', function() {
+    // Set up initial page
+    if (window.location.hash) {
+        const pageFromHash = window.location.hash.substring(1);
+        loadPage(pageFromHash);
+    } else {
+        loadPage('inicio');
+    }
 
-// Close dropdowns and mobile menu when clicking outside
-document.addEventListener('click', function(event) {
-    const selector = document.querySelector('.language-selector');
-    if (!selector.contains(event.target)) {
-        document.getElementById('language-dropdown').classList.remove('show');
-    }
-    
-    // Close mobile menu when clicking outside
-    const navCenter = document.getElementById('nav-center');
-    const mobileToggle = document.querySelector('.mobile-menu-toggle');
-    if (!navCenter.contains(event.target) && !mobileToggle.contains(event.target)) {
-        navCenter.classList.remove('active');
-    }
+    // Initialize all interactive components
+    initializeInteractiveEffects();
+    setupEventListeners();
 });
 
-// Add interactive effects
-function initializeInteractiveEffects() {
-    // Add hover effects to cards
-    const cards = document.querySelectorAll('.service-card, .portfolio-item, .skill-item');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
+// Setup all event listeners
+function setupEventListeners() {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+        const selector = document.querySelector('.language-selector');
+        if (!selector.contains(event.target)) {
+            document.getElementById('language-dropdown').classList.remove('show');
+        }
     });
 
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', () => {
-        const hero = document.querySelector('.hero');
-        if (hero && currentPage === 'inicio') {
-            const scrolled = window.pageYOffset;
-            hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+    // Keyboard navigation support
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            document.getElementById('language-dropdown').classList.remove('show');
+            document.getElementById('nav-center').classList.remove('active');
         }
     });
 }
 
-// Initialize the application
-document.addEventListener('DOMContentLoaded', function() {
-    // Ensure the first page is active
-    showPage('inicio');
+// Initialize all interactive effects
+function initializeInteractiveEffects() {
+    // Add hover effects to cards (will be re-initialized after page loads)
+    initCardHoverEffects();
     
-    // Add click event listeners to all navigation buttons
-    document.querySelectorAll('.nav-link').forEach(button => {
-        button.addEventListener('click', function() {
-            const buttonText = this.textContent.toLowerCase();
-            let pageId = 'inicio';
-            
-            if (buttonText.includes('sobre') || buttonText.includes('aboutme')) {
-                pageId = 'sobre-mi';
-            } else if (buttonText.includes('servicios') || buttonText.includes('services')) {
-                pageId = 'servicios';
-            } else if (buttonText.includes('portfolio')) {
-                pageId = 'portfolio';
-            } else if (buttonText.includes('contacto') || buttonText.includes('contact')) {
-                pageId = 'contacto';
-            }
-            
-            showPage(pageId);
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', handleParallaxEffect);
+    
+    // Initialize animations for current page
+    initPageAnimations();
+}
+
+function initCardHoverEffects() {
+    const cards = document.querySelectorAll('.service-card, .portfolio-item, .skill-item');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px)';
+            this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
         });
     });
-    
-    // Initialize interactive effects
-    initializeInteractiveEffects();
-});
+}
+
+function handleParallaxEffect() {
+    const hero = document.querySelector('.hero');
+    if (hero && currentPage === 'inicio') {
+        const scrolled = window.pageYOffset;
+        hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+    }
+}
+
+function initPageAnimations() {
+    // Initialize any page-specific animations
+    const pageElement = document.getElementById(currentPage);
+    if (pageElement) {
+        pageElement.style.opacity = '1';
+        pageElement.style.transform = 'translateX(0)';
+    }
+}
