@@ -3,15 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Portfolio</title>
+    <title>Tu Nombre - Ingeniero en Sistemas</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; }
-        h1 { color: #333; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .hero .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        /* About Section */
+        .about {
+            background: white;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Services Section */
+        .services {
+            background: #f8f9fa;
+        }
+
+        .services h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            background: white;
+        }
+
+        .portfolio h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-item-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-item h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 1rem;
+        }
+
+        .contact-item h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .social-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
 </head>
 <body>
-    <h1>¡Hola! Soy [Tu Nombre]</h1>
-    <p>Ingeniero en Sistemas especializado en Software y Análisis de Datos</p>
-    <p>Sitio web en construcción...</p>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Tu Nombre</div>
+            <ul class="nav-links">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#sobre-mi">Sobre Mí</a></li>
+                <li><a href="#servicios">Servicios</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contacto">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="inicio" class="hero">
+            <h1>Ingeniero en Sistemas</h1>
+            <p class="subtitle">Especializado en Desarrollo de Software y Análisis de Datos</p>
+            <a href="#contacto" class="cta-button">Trabajemos Juntos</a>
+        </section>
+
+        <!-- About Section -->
+        <section id="sobre-mi" class="about">
+            <h2>Sobre Mí</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Soy un Ingeniero en Sistemas apasionado por la tecnología y la innovación. Me especializo en el desarrollo de software y análisis de datos, con experiencia en múltiples tecnologías y frameworks modernos.</p>
+                    
+                    <p>Mi objetivo es crear soluciones tecnológicas eficientes que resuelvan problemas reales y aporten valor a las organizaciones.</p>
+                    
+                    <p>Siempre estoy aprendiendo nuevas tecnologías y manteniéndome actualizado con las últimas tendencias en el mundo del desarrollo.</p>
+                </div>
+                
+                <div class="skills">
+                    <div class="skill-item">
+                        <h3>Desarrollo Web</h3>
+                        <p>HTML, CSS, JavaScript, React, Node.js</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>Análisis de Datos</h3>
+                        <p>Python, SQL, Power BI, Excel</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>Bases de Datos</h3>
+                        <p>MySQL, PostgreSQL, MongoDB</p>
+                    </div>
+                    <div class="skill-item">
+                        <h3>Cloud & DevOps</h3>
+                        <p>AWS, Git, Docker, CI/CD</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="servicios" class="services">
+            <h2>Mis Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Desarrollo de Software</h3>
+                    <p>Creación de aplicaciones web y móviles utilizando las últimas tecnologías. Desde landing pages hasta sistemas complejos.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Análisis de Datos</h3>
+                    <p>Transformo datos en insights valiosos mediante análisis estadístico, visualizaciones y reportes automatizados.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Automatización de Procesos</h3>
+                    <p>Optimizo workflows empresariales mediante automatización, reduciendo tiempos y mejorando la eficiencia.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3>Consultoría Tecnológica</h3>
+                    <p>Asesoramiento en arquitectura de sistemas, selección de tecnologías y mejores prácticas de desarrollo.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio">
+            <h2>Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Sistema de Gestión Empresarial</h3>
+                        <p>Aplicación web completa para gestión de inventarios y ventas. Desarrollada con React y Node.js.</p>
+                        <p><strong>Tecnologías:</strong> React, Node.js, MySQL, Bootstrap</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>Dashboard de Análisis de Ventas</h3>
+                        <p>Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos.</p>
+                        <p><strong>Tecnologías:</strong> Python, Dash, Plotly, PostgreSQL</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-item-content">
+                        <h3>API de Gestión de Usuarios</h3>
+                        <p>API RESTful robusta para autenticación y gestión de usuarios con documentación completa.</p>
+                        <p><strong>Tecnologías:</strong> Node.js, Express, JWT, MongoDB</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contacto" class="contact">
+            <h2>¿Trabajamos Juntos?</h2>
+            <p>Estoy disponible para proyectos freelance y oportunidades de colaboración.</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <h3>📧 Email</h3>
+                    <p>tu.email@gmail.com</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📱 WhatsApp</h3>
+                    <p>+1 (555) 123-4567</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>📍 Ubicación</h3>
+                    <p>Tu Ciudad, País</p>
+                </div>
+                
+                <div class="contact-item">
+                    <h3>💼 LinkedIn</h3>
+                    <p>linkedin.com/in/tu-perfil</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Tu Nombre. Todos los derechos reservados.</p>
+        <div class="social-links">
+            <a href="https://github.com/tu-usuario">GitHub</a>
+            <a href="https://linkedin.com/in/tu-perfil">LinkedIn</a>
+            <a href="mailto:tu.email@gmail.com">Email</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling para enlaces de navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Efecto de paralaje simple en hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        });
+    </script>
 </body>
 </html>
