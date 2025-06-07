@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="loadPage('home')">Tu Nombre</div>
+            <div class="logo" onclick="loadPage('inicio')">Tu Nombre</div>
             <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('aboutme')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link active" onclick="loadPage('inicio')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('sobre-mi')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="loadPage('servicios')" data-es="Servicios" data-en="Services">Servicios</button></li>
                     <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
+                    <li><button class="nav-link" onclick="loadPage('contacto')" data-es="Contacto" data-en="Contact">Contacto</button></li>
                 </ul>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">
@@ -34,10 +35,16 @@
         </nav>
     </header>
 
+    <!-- Main Content -->
     <main id="main-content">
-        <!-- Contenido se cargará dinámicamente aquí -->
+        <!-- Contenido dinámico se cargará aquí -->
+        <div class="loading-animation">
+            <div class="spinner"></div>
+            <p>Cargando contenido...</p>
+        </div>
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2025 Tu Nombre. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
         <div class="social-links">
@@ -47,8 +54,32 @@
         </div>
     </footer>
 
+    <!-- JavaScript Files -->
     <script src="js/main.js"></script>
-    <script src="js/navigation.js"></script>
     <script src="js/languages.js"></script>
+    <script src="js/navigation.js"></script>
+    
+    <!-- Inline script for initial page load -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar la página de inicio por defecto
+            if (typeof loadPage === 'function') {
+                loadPage('inicio');
+            } else {
+                console.error('La función loadPage no está definida');
+                document.getElementById('main-content').innerHTML = `
+                    <div class="error-message">
+                        <h2>Error de configuración</h2>
+                        <p>El sistema de navegación no está funcionando correctamente.</p>
+                    </div>
+                `;
+            }
+            
+            // Inicializar efectos interactivos
+            if (typeof initializeInteractiveEffects === 'function') {
+                initializeInteractiveEffects();
+            }
+        });
+    </script>
 </body>
 </html>
