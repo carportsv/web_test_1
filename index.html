@@ -4,47 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tu Nombre - Ingeniero en Sistemas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="loadPage('inicio')">Tu Nombre</div>
+            <div class="logo" onclick="showPage('inicio')">Tu Nombre</div>
             <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="loadPage('inicio')" data-page="inicio">Inicio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('sobre-mi')" data-page="sobre-mi">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="loadPage('servicios')" data-page="servicios">Servicios</button></li>
-                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-page="portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('contacto')" data-page="contacto">Contacto</button></li>
+                    <li><button class="nav-link active" onclick="showPage('inicio')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="showPage('sobre-mi')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="showPage('servicios')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="showPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="showPage('contacto')" data-es="Contacto" data-en="Contact">Contacto</button></li>
                 </ul>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
                 <div class="language-selector">
                     <button class="language-btn" onclick="toggleLanguageDropdown()">
-                        <span id="current-flag">🇪🇸</span> <span id="current-lang">ES</span>
+                        🌐 <span id="current-lang">ES</span>
                     </button>
                     <div class="language-dropdown" id="language-dropdown">
                         <button onclick="changeLanguage('es')">🇪🇸 Español</button>
                         <button onclick="changeLanguage('en')">🇺🇸 English</button>
-                        <button onclick="changeLanguage('it')">🇮🇹 Italiano</button>
-                        <button onclick="changeLanguage('fr')">🇫🇷 Français</button>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Content -->
     <main id="main-content">
-        <!-- Content will be loaded here dynamically -->
+        <!-- Las páginas se cargarán aquí dinámicamente -->
     </main>
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2025 Tu Nombre. <span id="footer-rights">Todos los derechos reservados.</span></p>
+        <p>&copy; 2025 Tu Nombre. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
         <div class="social-links">
             <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
             <a href="https://linkedin.com/in/tu-perfil" target="_blank">LinkedIn</a>
@@ -52,313 +50,9 @@
         </div>
     </footer>
 
-    <!-- Loading Spinner -->
-    <div id="loading-spinner" class="loading-spinner">
-        <div class="spinner"></div>
-    </div>
-
-    <script src="js/main.js"></script>
-    <script src="js/languages.js"></script>
+    <!-- Scripts -->
     <script src="js/navigation.js"></script>
-
-    <style>
-        /* Estilos base del header y footer */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #00d4ff, #9d4edd, #ff006e);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
-            cursor: pointer;
-        }
-
-        .nav-center {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 0.5rem;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            padding: 0.5rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .nav-links li {
-            position: relative;
-        }
-
-        .nav-links button {
-            color: rgba(255,255,255,0.8);
-            background: none;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            position: relative;
-            font-weight: 500;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .nav-links button:hover,
-        .nav-links button.active {
-            color: white;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            box-shadow: 0 0 20px rgba(102, 126, 234, 0.6);
-            transform: translateY(-2px);
-        }
-
-        .language-selector {
-            position: relative;
-        }
-
-        .language-btn {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .language-btn:hover {
-            background: rgba(255,255,255,0.2);
-            box-shadow: 0 0 15px rgba(157, 78, 221, 0.3);
-        }
-
-        .language-dropdown {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: rgba(26, 26, 46, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 0.5rem 0;
-            min-width: 140px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-
-        .language-dropdown.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .language-dropdown button {
-            width: 100%;
-            background: none;
-            border: none;
-            color: white;
-            padding: 8px 16px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-            text-align: left;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .language-dropdown button:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        /* Main Content */
-        main {
-            margin-top: 80px;
-            min-height: calc(100vh - 80px);
-        }
-
-        /* Loading Spinner */
-        .loading-spinner {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .loading-spinner.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Footer */
-        footer {
-            background: #2c3e50;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        .social-links {
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            text-decoration: none;
-            margin: 0 1rem;
-            transition: all 0.3s ease;
-            padding: 0.5rem;
-            border-radius: 10px;
-        }
-
-        .social-links a:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Page transitions */
-        .page-enter {
-            opacity: 0;
-            transform: translateX(50px);
-        }
-
-        .page-enter-active {
-            opacity: 1;
-            transform: translateX(0);
-            transition: all 0.5s ease;
-        }
-
-        .page-exit {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .page-exit-active {
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.3s ease;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .nav-center {
-                position: fixed;
-                top: 80px;
-                left: 0;
-                right: 0;
-                background: rgba(26, 26, 46, 0.95);
-                backdrop-filter: blur(20px);
-                padding: 2rem;
-                transform: translateY(-100%);
-                transition: transform 0.3s ease;
-                flex-direction: column;
-            }
-
-            .nav-center.active {
-                transform: translateY(0);
-            }
-
-            .nav-links {
-                flex-direction: column;
-                gap: 1rem;
-                background: none;
-                padding: 0;
-                border: none;
-                width: 100%;
-            }
-
-            .nav-links button {
-                width: 100%;
-                text-align: center;
-                padding: 1rem;
-            }
-
-            .language-selector {
-                margin-top: 1rem;
-            }
-        }
-    </style>
+    <script src="js/languages.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
