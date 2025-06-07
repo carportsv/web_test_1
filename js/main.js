@@ -1,68 +1,54 @@
-// Initialize the page
-document.addEventListener('DOMContentLoaded', function() {
-    // Load the home page by default
-    loadPage('inicio');
-    
-    // Add click event listeners to all navigation buttons
-    document.querySelectorAll('.nav-link').forEach(button => {
-        button.addEventListener('click', function() {
-            const buttonText = this.textContent.toLowerCase();
-            let pageId = 'inicio';
-            
-            if (buttonText.includes('sobre') || buttonText.includes('about')) {
-                pageId = 'sobre-mi';
-            } else if (buttonText.includes('servicios') || buttonText.includes('services')) {
-                pageId = 'servicios';
-            } else if (buttonText.includes('portfolio')) {
-                pageId = 'portfolio';
-            } else if (buttonText.includes('contacto') || buttonText.includes('contact')) {
-                pageId = 'contacto';
-            }
-            
-            loadPage(pageId);
-        });
-    });
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tu Nombre - Ingeniero en Sistemas</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo" onclick="loadPage('home')">Tu Nombre</div>
+            <div class="nav-center" id="nav-center">
+                <ul class="nav-links">
+                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('aboutme')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
+                </ul>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
+                <div class="language-selector">
+                    <button class="language-btn" onclick="toggleLanguageDropdown()">
+                        🌐 <span id="current-lang">ES</span>
+                    </button>
+                    <div class="language-dropdown" id="language-dropdown">
+                        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
+                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
 
-    // Add some interactive effects
-    // Add hover effects to cards
-    const cards = document.querySelectorAll('.service-card, .portfolio-item, .skill-item');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+    <main id="main-content">
+        <!-- Contenido se cargará dinámicamente aquí -->
+    </main>
 
-    // Add parallax effect to hero section
-    window.addEventListener('scroll', () => {
-        const hero = document.querySelector('.hero');
-        if (hero && currentPage === 'inicio') {
-            const scrolled = window.pageYOffset;
-            hero.style.transform = `translateY(${scrolled * 0.3}px)`;
-        }
-    });
-});
+    <footer>
+        <p>&copy; 2025 Tu Nombre. <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span></p>
+        <div class="social-links">
+            <a href="https://github.com/tu-usuario" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/tu-perfil" target="_blank">LinkedIn</a>
+            <a href="mailto:tu.email@gmail.com">Email</a>
+        </div>
+    </footer>
 
-// Global variables
-let currentPage = 'inicio';
-
-// Function to load page content
-function loadPage(pageId) {
-    fetch(`pages/${pageId}.html`)
-        .then(response => response.text())
-        .then(html => {
-            document.getElementById('main-content').innerHTML = html;
-            currentPage = pageId;
-            updateActiveNavigation(pageId);
-            
-            // Close mobile menu if open
-            const navCenter = document.getElementById('nav-center');
-            navCenter.classList.remove('active');
-        })
-        .catch(error => {
-            console.error('Error loading page:', error);
-        });
-}
+    <script src="js/main.js"></script>
+    <script src="js/navigation.js"></script>
+    <script src="js/languages.js"></script>
+</body>
+</html>
