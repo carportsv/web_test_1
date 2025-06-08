@@ -3,7 +3,7 @@
  */
 const pageMap = {
     'home': 'pages/home.html',
-    'aboutme': 'pages/aboutme.html',
+    'about': 'pages/about.html',
     'services': 'pages/services.html',
     'portfolio': 'pages/portfolio.html',
     'contact': 'pages/contact.html'
@@ -46,7 +46,7 @@ async function loadPage(pageId) {
             <div class="error-message">
                 <h2>Error al cargar la página</h2>
                 <p>${error.message}</p>
-                <button onclick="loadPage('inicio')">Volver al inicio</button>
+                <button onclick="loadPage('home')">Volver al inicio</button>
             </div>
         `;
     }
@@ -75,6 +75,6 @@ function toggleMobileMenu() {
 
 // Handle browser back/forward
 window.addEventListener('popstate', function() {
-    const pageFromHash = window.location.hash.substring(1) || 'inicio';
+    const pageFromHash = window.location.hash.substring(1) || 'home';
     loadPage(pageFromHash);
 });
