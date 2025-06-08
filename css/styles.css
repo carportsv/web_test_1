@@ -645,9 +645,10 @@ main {
 }
 
 .portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
+    display: flex;
+    flex-direction: row;     /* Para alinearlas horizontalmente */
+    gap: 24px;               /* Espacio entre tarjetas */
+    flex-wrap: wrap;         /* Opcional: permite que bajen a otra línea si no caben */
 }
 
 .portfolio-item {
