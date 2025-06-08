@@ -1022,3 +1022,22 @@ a:focus {
         --shadow-heavy: 0 20px 50px rgb(0, 0, 0);
     }
 }
+
+
+/*---*/
+@media (max-width: 1000px) {
+  .page-content {
+    padding: 2rem 1rem;
+  }
+  footer {
+    padding: 1.2rem 0.5rem;
+  }
+}
+@media (max-width: 600px) {
+  .page-content {
+    padding: 1rem 0.2rem;
+  }
+  footer {
+    padding: 0.7rem 0.1rem;
+  }
+}
