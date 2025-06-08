@@ -10,14 +10,14 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="loadPage('pages/home.html')">carposv</div>
+            <div class="logo" onclick="loadPage('home')">Tu Nombre</div>
             <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="loadPage('pages/home.html')" data-es="Inicio" data-en="Home">Inicio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('pages/aboutme.html')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="loadPage('pages/services.html')" data-es="Servicios" data-en="Services">Servicios</button></li>
-                    <li><button class="nav-link" onclick="loadPage('pages/portfolio.html')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('pages/contact.html')" data-es="Contacto" data-en="Contact">Contacto</button></li>
+                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('about')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
                 </ul>
             </div>
             <div style="display: flex; align-items: center; gap: 1rem;">
@@ -35,12 +35,12 @@
         </nav>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main Content Container -->
     <main id="main-content">
-        <!-- Contenido dinámico se cargará aquí -->
-        <div class="loading-animation">
+        <!-- El contenido de las páginas se cargará aquí dinámicamente -->
+        <div id="loading" class="loading-spinner">
             <div class="spinner"></div>
-            <p>Cargando contenido...</p>
+            <p>Cargando...</p>
         </div>
     </main>
 
@@ -54,32 +54,9 @@
         </div>
     </footer>
 
-    <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
+    <!-- Scripts -->
     <script src="js/languages.js"></script>
     <script src="js/navigation.js"></script>
-    
-    <!-- Inline script for initial page load -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Cargar la página de inicio por defecto
-            if (typeof loadPage === 'function') {
-                loadPage('inicio');
-            } else {
-                console.error('La función loadPage no está definida');
-                document.getElementById('main-content').innerHTML = `
-                    <div class="error-message">
-                        <h2>Error de configuración</h2>
-                        <p>El sistema de navegación no está funcionando correctamente.</p>
-                    </div>
-                `;
-            }
-            
-            // Inicializar efectos interactivos
-            if (typeof initializeInteractiveEffects === 'function') {
-                initializeInteractiveEffects();
-            }
-        });
-    </script>
+    <script src="js/main.js"></script>
 </body>
 </html>
