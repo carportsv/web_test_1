@@ -652,8 +652,13 @@ main {
 }
 
 .portfolio-item {
-    flex: 1 1 300px;         /* Opcional: para que sean responsivas */
-    max-width: 350px;        /* Opcional: limita el ancho máximo de cada tarjeta */
+    background: linear-gradient(135deg, #f8f9fa, var(--white));
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    transition: var(--transition-normal);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid rgba(102, 126, 234, 0.1);
+    cursor: pointer;
 }
 
 .portfolio-item:hover {
