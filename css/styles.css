@@ -738,16 +738,31 @@ main {
 }
 
 /* Botón de enlace personalizado */
-.btn.btn-primary {
-    display: inline-block;
-    padding: 7px 14px;
-    background: #1976d2;
-    color: #fff;
-    border-radius: 4px;
-    text-decoration: none;
+/* Botón igual que tech-tag */
+.btn-link-tag {
+    background: var(--primary-gradient);
+    color: var(--white);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--border-radius);
+    font-size: 0.8rem;
     font-weight: 500;
-    font-size: 14px;
-    margin-top: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 0.6rem;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    text-decoration: none;
+    transition: var(--transition-fast);
+    box-shadow: none;
+}
+
+.btn-link-tag:hover, .btn-link-tag:focus {
+    filter: brightness(1.07);
+    transform: scale(1.05);
+    text-decoration: none;
+    color: var(--white);
 }
 
 /* Responsive: apila ícono y contenido en móviles */
