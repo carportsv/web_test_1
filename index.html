@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carlos Portillo - Ingeniero en Sistemas</title>
+    <title id="document-title">Carlos Portillo - Ingeniero en Sistemas</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Font Awesome para los íconos de redes sociales -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -12,15 +12,15 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo" onclick="loadPage('home')">Carlos Portillo</div>
+            <div class="logo" onclick="loadPage('home')" id="logo-text">Carlos Portillo</div>
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">☰</button>
             <div class="nav-center" id="nav-center">
                 <ul class="nav-links">
-                    <li><button class="nav-link active" onclick="loadPage('home')" data-es="Inicio" data-en="Home">Inicio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('about')" data-es="Sobre Mí" data-en="About">Sobre Mí</button></li>
-                    <li><button class="nav-link" onclick="loadPage('services')" data-es="Servicios" data-en="Services">Servicios</button></li>
-                    <li><button class="nav-link" onclick="loadPage('portfolio')" data-es="Portfolio" data-en="Portfolio">Portfolio</button></li>
-                    <li><button class="nav-link" onclick="loadPage('contact')" data-es="Contacto" data-en="Contact">Contacto</button></li>
+                    <li><button class="nav-link active" onclick="loadPage('home')" id="nav-home">Inicio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('about')" id="nav-about">Sobre Mí</button></li>
+                    <li><button class="nav-link" onclick="loadPage('services')" id="nav-services">Servicios</button></li>
+                    <li><button class="nav-link" onclick="loadPage('portfolio')" id="nav-portfolio">Portfolio</button></li>
+                    <li><button class="nav-link" onclick="loadPage('contact')" id="nav-contact">Contacto</button></li>
                 </ul>
                 <!-- Selector de idioma DENTRO del menú -->
                 <div class="language-selector">
@@ -28,8 +28,11 @@
                         🌐 <span id="current-lang">ES</span>
                     </button>
                     <div class="language-dropdown" id="language-dropdown">
-                        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
-                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                        <button onclick="setLanguage('es')">🇪🇸 Español</button>
+                        <button onclick="setLanguage('en')">🇺🇸 English</button>
+                        <button onclick="setLanguage('fr')">🇫🇷 Français</button>
+                        <button onclick="setLanguage('it')">🇮🇹 Italiano</button>
+                        <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
                     </div>
                 </div>
             </div>
@@ -41,14 +44,14 @@
         <!-- El contenido de las páginas se cargará aquí dinámicamente -->
         <div id="loading" class="loading-spinner">
             <div class="spinner"></div>
-            <p>Cargando...</p>
+            <p id="loading-text">Cargando...</p>
         </div>
     </main>
 
     <!-- Footer -->
     <footer>
         <p>&copy; 2025 Carlos Portillo.
-            <span data-es="Todos los derechos reservados." data-en="All rights reserved.">Todos los derechos reservados.</span>
+            <span id="footer-rights">Todos los derechos reservados.</span>
         </p>
         <div class="social-links" style="display: flex; gap: 1.5rem; justify-content:center; align-items:center; margin-top:.5rem;">
             <a href="https://github.com/carportsv" target="_blank" aria-label="GitHub">
@@ -67,9 +70,10 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/languages.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/main.js"></script>
+    <!-- Sistema de idiomas centralizado -->
+    <script src="lang/lang.js"></script>
     <script>
         // Inicializa la página correcta al cargar
         document.addEventListener('DOMContentLoaded', function() {
