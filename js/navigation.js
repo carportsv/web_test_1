@@ -33,12 +33,14 @@ async function loadPage(pageId) {
         
         // Update content
         document.getElementById('main-content').innerHTML = html;
-        currentPage = pageId;
+        window.currentPage = pageId;
         window.history.pushState({}, '', `#${pageId}`);
         
         // Update UI
         updateActiveNavigation(pageId);
-        initializeInteractiveEffects();
+        if (typeof initializeInteractiveEffects === 'function') {
+            initializeInteractiveEffects();
+        }
         
     } catch (error) {
         console.error('Error loading page:', error);
@@ -57,8 +59,8 @@ function updateActiveNavigation(pageId) {
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
         link.classList.remove('active');
-        const linkPage = link.getAttribute('onclick').match(/loadPage\('(.+?)'\)/)[1];
-        if (linkPage === pageId) {
+        const onclick = link.getAttribute('onclick');
+        if (onclick && onclick.includes(`loadPage('${pageId}'`)) {
             link.classList.add('active');
         }
     });
@@ -70,7 +72,8 @@ function toggleMobileMenu() {
     navCenter.classList.toggle('active');
     
     // Close language dropdown if open
-    document.getElementById('language-dropdown').classList.remove('show');
+    const langDropdown = document.getElementById('language-dropdown');
+    if (langDropdown) langDropdown.classList.remove('show');
 }
 
 // Handle browser back/forward
