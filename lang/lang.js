@@ -1,28 +1,15 @@
 // Sistema de carga de idiomas centralizado
 
-// Lista de IDs que serán traducidos
-const translatableIds = [
-  'nav-home',
-  'nav-about',
-  'nav-services',
-  'nav-portfolio',
-  'nav-contact',
-  'logo-text',
-  'footer-rights',
-  'loading-text',
-  'document-title'
-];
-
-// Función para cargar y aplicar el idioma
+// Función para cargar y aplicar el idioma (traduce TODO lo que tenga id en el diccionario)
 async function setLanguage(lang) {
   try {
     const response = await fetch(`lang/${lang}.json`);
     const texts = await response.json();
 
-    // Actualiza los textos según el ID
-    translatableIds.forEach(id => {
+    // Recorre TODAS las claves del diccionario y traduce si existe el id en el DOM
+    Object.keys(texts).forEach(id => {
       const el = document.getElementById(id);
-      if (el && texts[id]) {
+      if (el) {
         if (id === 'document-title') {
           document.title = texts[id];
         } else {
@@ -31,20 +18,31 @@ async function setLanguage(lang) {
       }
     });
 
-    // Actualiza el indicador de idioma
+    // Actualiza el indicador visual de idioma
     const currentLang = document.getElementById('current-lang');
     if (currentLang) currentLang.textContent = lang.toUpperCase();
 
-    // Guarda la preferencia
+    // Guarda preferencia
     localStorage.setItem('lang', lang);
 
-    // Marca el botón activo en el menú de idiomas
+    // Marca el botón activo en el menú de idiomas (opcional)
     document.querySelectorAll('.language-dropdown button').forEach(btn => {
-      btn.classList.toggle('active', btn.getAttribute('onclick') === `setLanguage('${lang}')`);
+      // Si usas changeLanguage('xx') en el onclick de los botones:
+      btn.classList.toggle('active', btn.getAttribute('onclick') === `changeLanguage('${lang}')`);
+      // Si usas setLanguage('xx') en el onclick, reemplaza arriba por:
+      // btn.classList.toggle('active', btn.getAttribute('onclick') === `setLanguage('${lang}')`);
     });
   } catch (e) {
     console.error('Error cargando el idioma', lang, e);
   }
+}
+
+// Permite cambiar idioma desde cualquier lugar llamando changeLanguage('xx')
+function changeLanguage(lang) {
+  setLanguage(lang);
+  // Si quieres que el menú desplegable se oculte al cambiar idioma:
+  const dropdown = document.getElementById('language-dropdown');
+  if (dropdown) dropdown.classList.remove('show');
 }
 
 // Inicializar idioma al cargar la página (desde localStorage o español por defecto)
@@ -53,5 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
   setLanguage(saved);
 });
 
-// Permite cambiar idioma desde cualquier lugar llamando setLanguage('xx')
+// Exponer funciones globalmente
 window.setLanguage = setLanguage;
+window.changeLanguage = changeLanguage;
