@@ -21,9 +21,11 @@ async function loadPage(pageId) {
         document.getElementById('main-content').innerHTML = `
             <div class="loading-animation">
                 <div class="spinner"></div>
-                <p>Cargando...</p>
+                <p id="loading-text">Cargando...</p>
             </div>
         `;
+        // Accesibilidad: indica que está cargando
+        document.getElementById('main-content').setAttribute('aria-busy', 'true');
 
         // Load page content
         const response = await fetch(pageMap[pageId]);
@@ -34,13 +36,26 @@ async function loadPage(pageId) {
         // Update content
         document.getElementById('main-content').innerHTML = html;
         window.currentPage = pageId;
-        window.history.pushState({}, '', `#${pageId}`);
-        
+
+        // Solo actualiza el hash si es diferente
+        if (window.location.hash.substring(1) !== pageId) {
+            window.location.hash = `#${pageId}`;
+        }
+
         // Update UI
         updateActiveNavigation(pageId);
+
+        // Aplica idioma actual a los nuevos textos cargados
+        const lang = localStorage.getItem('lang') || 'es';
+        if (typeof setLanguage === 'function') setLanguage(lang);
+
+        // Inicializa efectos interactivos sobre el nuevo contenido
         if (typeof initializeInteractiveEffects === 'function') {
             initializeInteractiveEffects();
         }
+
+        // Accesibilidad: ya no está ocupado
+        document.getElementById('main-content').setAttribute('aria-busy', 'false');
         
     } catch (error) {
         console.error('Error loading page:', error);
@@ -76,8 +91,8 @@ function toggleMobileMenu() {
     if (langDropdown) langDropdown.classList.remove('show');
 }
 
-// Handle browser back/forward
-window.addEventListener('popstate', function() {
+// Handle browser back/forward (hash navigation)
+window.addEventListener('hashchange', function() {
     const pageFromHash = window.location.hash.substring(1) || 'home';
     loadPage(pageFromHash);
 });
