@@ -1053,6 +1053,7 @@ a:focus {
 }
 
 /*---*/
+/* BOTÓN MENÚ MÓVIL SEGURO */
 .mobile-menu-toggle {
     display: none;
     background: none;
@@ -1063,6 +1064,8 @@ a:focus {
     padding: 0.5rem;
     border-radius: var(--border-radius);
     transition: var(--transition-normal);
+    z-index: 2001;
+    position: relative;
 }
 .mobile-menu-toggle:hover {
     background: rgba(255,255,255,0.1);
