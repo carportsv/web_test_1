@@ -1051,3 +1051,26 @@ a:focus {
   .page-content { padding: 1rem 0.2rem; }
   footer { padding: 0.7rem 0.1rem; }
 }
+
+/*---*/
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    transition: var(--transition-normal);
+}
+.mobile-menu-toggle:hover {
+    background: rgba(255,255,255,0.1);
+}
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+        position: relative;
+        z-index: 2001;
+    }
+}
