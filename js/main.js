@@ -23,11 +23,11 @@ function loadPage(page) {
         });
 }
 
-// Selector de idioma: muestra/oculta el menú
+// Selector de idioma: muestra/oculta el menú usando CLASE .show
 function toggleLanguageDropdown() {
     const dropdown = document.getElementById('language-dropdown');
     if (!dropdown) return;
-    dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    dropdown.classList.toggle('show');
 }
 
 // Cierra el menú si haces clic fuera
@@ -36,7 +36,7 @@ document.addEventListener('click', function (e) {
     const dropdown = document.getElementById('language-dropdown');
     if (!dropdown || !btn) return;
     if (!dropdown.contains(e.target) && !btn.contains(e.target)) {
-        dropdown.style.display = 'none';
+        dropdown.classList.remove('show');
     }
 });
 
@@ -48,7 +48,7 @@ function changeLanguage(lang) {
     const langMap = { es: 'ES', en: 'EN', fr: 'FR', it: 'IT', de: 'DE' };
     document.getElementById('current-lang').textContent = langMap[lang] || lang.toUpperCase();
     // Oculta el dropdown
-    document.getElementById('language-dropdown').style.display = 'none';
+    document.getElementById('language-dropdown').classList.remove('show');
 }
 
 // Aplica el idioma actual a todos los elementos traducibles
