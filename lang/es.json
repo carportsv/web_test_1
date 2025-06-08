@@ -58,7 +58,7 @@
   "portfolio-title": "Portfolio",
   "portfolio-project1-title": "Sistema de Gestión Empresarial",
   "portfolio-project1-desc": "Aplicación web completa para gestión de inventarios, ventas y reportería en tiempo real. Desarrollada con arquitectura moderna y escalable.",
-  "portfolio-project2-title": "Dashboard de Análisis de Ventas",
+  "portfolio-project2-title": "Dashboard de Análisis de Datos",
   "portfolio-project2-desc": "Panel interactivo para visualización de métricas de ventas en tiempo real con gráficos dinámicos y filtros avanzados.",
   "portfolio-project3-title": "API de Gestión de Usuarios",
   "portfolio-project3-desc": "API RESTful robusta para autenticación, autorización y gestión de usuarios con documentación completa y pruebas automatizadas.",
