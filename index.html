@@ -28,11 +28,11 @@
                         🌐 <span id="current-lang">ES</span>
                     </button>
                     <div class="language-dropdown" id="language-dropdown">
-                        <button onclick="setLanguage('es')">🇪🇸 Español</button>
-                        <button onclick="setLanguage('en')">🇺🇸 English</button>
-                        <button onclick="setLanguage('fr')">🇫🇷 Français</button>
-                        <button onclick="setLanguage('it')">🇮🇹 Italiano</button>
-                        <button onclick="setLanguage('de')">🇩🇪 Deutsch</button>
+                        <button onclick="changeLanguage('es')">🇪🇸 Español</button>
+                        <button onclick="changeLanguage('en')">🇺🇸 English</button>
+                        <button onclick="changeLanguage('fr')">🇫🇷 Français</button>
+                        <button onclick="changeLanguage('it')">🇮🇹 Italiano</button>
+                        <button onclick="changeLanguage('de')">🇩🇪 Deutsch</button>
                     </div>
                 </div>
             </div>
@@ -74,12 +74,5 @@
     <script src="js/main.js"></script>
     <!-- Sistema de idiomas centralizado -->
     <script src="lang/lang.js"></script>
-    <script>
-        // Inicializa la página correcta al cargar
-        document.addEventListener('DOMContentLoaded', function() {
-            const pageFromHash = window.location.hash.substring(1) || 'home';
-            loadPage(pageFromHash);
-        });
-    </script>
 </body>
 </html>
